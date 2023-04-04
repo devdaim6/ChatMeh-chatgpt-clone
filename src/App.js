@@ -1,13 +1,15 @@
 import './App.css';
+import Footer from "./components/Footer"
 import ChatGPTBody from './components/ChatGPTBotdy';
 function App() {
 
   return (
     <>
-      <div className="container" style={{ margin: "10 auto" }}>
+      <div>
         <ChatGPTBody />
+        <Footer />
       </div>
- </>
+    </>
   );
 }
 
