@@ -1,0 +1,33 @@
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .feature {
+    flex-basis: 30%;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(251, 245, 245, 0.465);
+    padding: 10px;
+    
+  }
+  
+ 
+  
+  .feature p {
+   
+    line-height: 1.4;
+    
+  }
+  @media screen and (max-width: 768px) {
+    .features {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .feature {
+      flex-basis: 90%;
+      margin-top: 20px;
+    }
+  }

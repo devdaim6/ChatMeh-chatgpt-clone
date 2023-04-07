@@ -1,13 +1,11 @@
 import './App.css';
-import Footer from "./components/Footer"
 import ChatGPTBody from './components/ChatGPTBotdy';
 function App() {
 
   return (
     <>
-      <div>
+      <div >
         <ChatGPTBody />
-        <Footer />
       </div>
     </>
   );
