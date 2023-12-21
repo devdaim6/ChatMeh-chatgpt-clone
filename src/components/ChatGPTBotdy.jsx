@@ -9,6 +9,7 @@ import {
 } from "@mui/icons-material";
 import Footer from "./Footer";
 import Typed from "typing-ind";
+
 function ChatGPTBody() {
   const [chatLog, setChatLog] = useState([]);
   const [answer, setAnswer] = useState("");
@@ -54,25 +55,36 @@ function ChatGPTBody() {
       ]);
       setBodyText(false);
       setQuestion("");
+
       setLoader(true);
-      const options = {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          "X-RapidAPI-Key":
-            "632a1d3569mshf3161e9d8d7f486p1c0d34jsne6615e4c4573",
-          "X-RapidAPI-Host": "openai80.p.rapidapi.com",
-        },
-        body: `{"model":"gpt-3.5-turbo","messages":[{"role":"user","content":"${question}"}]}`,
+      const apiUrl = "https://api.openai.com/v1/chat/completions";
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
       };
 
-      const res = await fetch(
-        "https://openai80.p.rapidapi.com/chat/completions",
-        options
-      );
-      const resJson = await res.json();
+      const data = {
+        model: "gpt-3.5-turbo",
+
+        messages: [
+          { role: "system", content: "You are a helpful assistant." },
+          { role: "user", content: question },
+        ],
+      };
+      console.log("solution");
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const result = await response.json();
+      if (result) console.log(result.choices[0].message.content);
+
       setLoader(false);
-      setAnswer(resJson.choices[0].message.content);
+      setAnswer(result.choices[0].message.content);
       setEnter(true);
     } catch (error) {
       console.log(error);
